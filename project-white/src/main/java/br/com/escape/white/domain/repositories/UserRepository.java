@@ -15,4 +15,13 @@ import br.com.escape.white.domain.entities.User;
  */
 public interface UserRepository extends CrudRepository<User, BigInteger> {
 
+	/**
+	 * Encontra o usuário pelo username
+	 * 
+	 * @param username
+	 *            o username
+	 * @return o usuário encontrado
+	 */
+	User findByUsername(String username);
+
 }

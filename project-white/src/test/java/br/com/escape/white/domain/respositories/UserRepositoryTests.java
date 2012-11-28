@@ -51,4 +51,29 @@ public class UserRepositoryTests {
 
 	}
 
+	/**
+	 * Testa a busca pelo nome de usuário
+	 */
+	@Test
+	public void testFindByUsername() {
+
+		User user = new User();
+		user.setName("nome");
+		user.setUsername("username@email.com");
+
+		User save = this.userRepository.save(user);
+
+		Assert.assertNotNull(save);
+
+		User found = this.userRepository.findByUsername("username@email.com");
+		Assert.assertNotNull(found);
+		Assert.assertEquals(save, found);
+
+		this.userRepository.delete(found.getId());
+
+		User delete = this.userRepository.findOne(found.getId());
+		Assert.assertNull(delete);
+
+	}
+
 }

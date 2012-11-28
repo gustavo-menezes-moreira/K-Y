@@ -6,3 +6,8 @@ CREATE TABLE main_users (
     username    varchar(255) NOT NULL,
     PRIMARY KEY(id)
 );
+
+ALTER TABLE main_users
+	ADD CONSTRAINT uk_user_username
+	UNIQUE KEY(username)
+;
