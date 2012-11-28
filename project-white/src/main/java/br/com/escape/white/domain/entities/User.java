@@ -26,6 +26,8 @@ public class User {
 
 	private String name;
 
+	private Boolean userAssistant;
+
 	/**
 	 * @return the id
 	 */
@@ -77,6 +79,22 @@ public class User {
 	}
 
 	/**
+	 * @return the userAssistant
+	 */
+	@Column(name = "assistant", nullable = false)
+	public Boolean getUserAssistant() {
+		return userAssistant;
+	}
+
+	/**
+	 * @param userAssistant
+	 *            the userAssistant to set
+	 */
+	public void setUserAssistant(Boolean userAssistant) {
+		this.userAssistant = userAssistant;
+	}
+
+	/**
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -113,5 +131,4 @@ public class User {
 			return false;
 		return true;
 	}
-
 }

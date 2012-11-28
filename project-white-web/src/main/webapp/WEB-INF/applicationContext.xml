@@ -10,6 +10,7 @@
         ">
 
 	<beans:import resource="classpath:white-beans.xml" />
+	<beans:import resource="classpath:database-beans.xml" />
 
 	<beans:bean class="br.com.escape.security.DefaultLogoutSuccessHandler"
 		id="logoutSuccessHandler" />
@@ -30,6 +31,9 @@
 	<beans:bean id="authenticationProcessingFilterEntryPoint"
 		class="br.com.escape.security.DefaultAuthenticationEntryPoint">
 	</beans:bean>
+
+	<beans:bean id="mainUserDetailsService" class="br.com.escape.security.UserDetailsService"
+		autowire="byType" />
 
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider>
