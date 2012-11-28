@@ -26,7 +26,7 @@ public class User {
 
 	private String name;
 
-	private Boolean userAssistant;
+	private Boolean userAssistant = true;
 
 	/**
 	 * @return the id
