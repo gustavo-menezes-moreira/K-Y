@@ -32,7 +32,7 @@ public class UserRepositoryTests {
 
 		User user = new User();
 		user.setName("nome");
-		user.setUsername("username@email.com");
+		user.setUserName("username@email.com");
 
 		User save = this.userRepository.save(user);
 
@@ -59,7 +59,7 @@ public class UserRepositoryTests {
 
 		User user = new User();
 		user.setName("nome");
-		user.setUsername("username@email.com");
+		user.setUserName("username@email.com");
 
 		User save = this.userRepository.save(user);
 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.escape.white.domain.entities;
 
 import java.math.BigInteger;
@@ -17,12 +14,12 @@ import javax.persistence.UniqueConstraint;
  * 
  */
 @Entity
-@Table(name = "main_users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name = "main_users", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
 public class User {
 
 	private BigInteger id;
 
-	private String username;
+	private String userName;
 
 	private String name;
 
@@ -50,16 +47,16 @@ public class User {
 	 * @return the username
 	 */
 	@Column(name = "username", nullable = false, unique = true)
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
 	/**
-	 * @param username
+	 * @param userName
 	 *            the username to set
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
@@ -103,7 +100,7 @@ public class User {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((username == null) ? 0 : username.hashCode());
+				+ ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 
@@ -124,10 +121,10 @@ public class User {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (username == null) {
-			if (other.username != null)
+		if (userName == null) {
+			if (other.userName != null)
 				return false;
-		} else if (!username.equals(other.username))
+		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}

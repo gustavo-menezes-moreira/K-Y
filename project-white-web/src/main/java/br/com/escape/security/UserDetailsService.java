@@ -37,7 +37,7 @@ public class UserDetailsService implements
 			throw new UsernameNotFoundException("username");
 		}
 
-		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(
 				SystemAuthorities.ROLE_ASSISTANT.name()));
 
