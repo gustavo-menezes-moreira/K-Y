@@ -26,6 +26,20 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test-mvc</artifactId>
+			<version>1.0.0.M1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -77,10 +91,8 @@
 										<delete file="${project.build.outputDirectory}/database-beans.xml" />
 
 										<!-- Copying Files -->
-										<copy file="src/main/resources/dev/database-beans.xml"
-											tofile="${project.build.outputDirectory}/database-beans.xml" />
-										<copy file="src/main/resources/dev/persistence.xml"
-											tofile="${project.build.outputDirectory}/persistence.xml" />
+										<copy file="src/main/resources/dev/database-beans.xml" tofile="${project.build.outputDirectory}/database-beans.xml" />
+										<copy file="src/main/resources/dev/persistence.xml" tofile="${project.build.outputDirectory}/persistence.xml" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -90,4 +102,11 @@
 			</build>
 		</profile>
 	</profiles>
+	
+	<repositories>
+		<repository>
+			<id>libs-milestone</id>
+			<url> http://repo.springsource.org/libs-milestone</url>
+		</repository>
+	</repositories>
 </project>

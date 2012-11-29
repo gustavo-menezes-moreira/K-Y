@@ -9,28 +9,35 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * @author super_000
  * 
  */
 @Entity
-@Table(name = "main_users", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
+@Table(name = "main_users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
 
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private BigInteger id;
 
+	@Column(name = "username", nullable = false, unique = true)
 	private String userName;
 
+	@Column(name = "name", nullable = false)
 	private String name;
 
+	@Column(name = "assistant", nullable = false)
 	private Boolean userAssistant = true;
 
 	/**
 	 * @return the id
 	 */
-	@Id
-	@GeneratedValue
-	@Column(name = "id")
 	public BigInteger getId() {
 		return id;
 	}
@@ -46,7 +53,6 @@ public class User {
 	/**
 	 * @return the username
 	 */
-	@Column(name = "username", nullable = false, unique = true)
 	public String getUserName() {
 		return userName;
 	}
@@ -62,7 +68,6 @@ public class User {
 	/**
 	 * @return the name
 	 */
-	@Column(name = "name", nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -78,7 +83,6 @@ public class User {
 	/**
 	 * @return the userAssistant
 	 */
-	@Column(name = "assistant", nullable = false)
 	public Boolean getUserAssistant() {
 		return userAssistant;
 	}
@@ -96,12 +100,9 @@ public class User {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(id).append(userName).append(name).append(userAssistant)
+				.toHashCode();
 	}
 
 	/**
@@ -109,23 +110,30 @@ public class User {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof User)) {
 			return false;
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		return true;
+		}
+		final User other = (User) obj;
+		return new EqualsBuilder()
+				.append(id, other.id).append(userName, other.userName)
+				.isEquals();
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append(id).append(userName).append(name).append(userAssistant)
+				.toString();
 	}
 }
