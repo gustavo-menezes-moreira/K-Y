@@ -19,7 +19,7 @@ import br.com.escape.white.domain.repositories.UserRepository;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:white-test-beans.xml")
-public class UserRepositoryTests {
+public class UserRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -32,6 +32,8 @@ public class UserRepositoryTests {
 
 		User user = new User();
 		user.setName("nome");
+		user.setUserAssistant(false);
+		user.setPassword("");
 		user.setUsername("username@email.com");
 
 		User save = this.userRepository.save(user);
@@ -59,6 +61,8 @@ public class UserRepositoryTests {
 
 		User user = new User();
 		user.setName("nome");
+		user.setUserAssistant(false);
+		user.setPassword("");
 		user.setUsername("username@email.com");
 
 		User save = this.userRepository.save(user);
