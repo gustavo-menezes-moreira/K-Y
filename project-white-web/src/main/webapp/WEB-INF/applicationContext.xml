@@ -42,11 +42,8 @@
 				<user name="gigas" password="gigas" authorities="ROLE_USER, ROLE_ADMIN" />
 			</user-service>
 		</authentication-provider>
-		<authentication-provider>
-			<user-service id="userDetailsService">
-				<user name="dani" password="dani" authorities="ROLE_USER" />
-				<user name="secretaria" password="secretaria" authorities="ROLE_ASSISTANT" />
-			</user-service>
+		<authentication-provider user-service-ref="mainUserDetailsService">
+			<password-encoder hash="sha-256" />
 		</authentication-provider>
 	</authentication-manager>
 
@@ -106,7 +103,7 @@
 
 	<beans:bean id="rememberMeServices"
 		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
-		<beans:property name="userDetailsService" ref="userDetailsService" />
+		<beans:property name="userDetailsService" ref="mainUserDetailsService" />
 		<beans:property name="key" value="white" />
 	</beans:bean>
 

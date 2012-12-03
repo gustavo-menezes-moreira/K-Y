@@ -27,13 +27,16 @@ public class User {
 	private BigInteger id;
 
 	@Column(name = "username", nullable = false, unique = true)
-	private String userName;
+	private String username;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 
 	@Column(name = "assistant", nullable = false)
 	private Boolean userAssistant = true;
+
+	@Column(name = "password", nullable = false)
+	private String password;
 
 	/**
 	 * @return the id
@@ -53,16 +56,16 @@ public class User {
 	/**
 	 * @return the username
 	 */
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
 	/**
 	 * @param userName
 	 *            the username to set
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
 
 	/**
@@ -100,9 +103,8 @@ public class User {
 	 */
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder()
-				.append(id).append(userName).append(name).append(userAssistant)
-				.toHashCode();
+		return new HashCodeBuilder().append(id).append(username).append(name)
+				.append(userAssistant).toHashCode();
 	}
 
 	/**
@@ -120,9 +122,8 @@ public class User {
 			return false;
 		}
 		final User other = (User) obj;
-		return new EqualsBuilder()
-				.append(id, other.id).append(userName, other.userName)
-				.isEquals();
+		return new EqualsBuilder().append(id, other.id)
+				.append(username, other.username).isEquals();
 	}
 
 	/**
@@ -132,8 +133,22 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this)
-				.append(id).append(userName).append(name).append(userAssistant)
-				.toString();
+		return new ToStringBuilder(this).append(id).append(username)
+				.append(name).append(userAssistant).toString();
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password
+	 *            the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

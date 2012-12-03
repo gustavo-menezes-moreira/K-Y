@@ -46,8 +46,7 @@ public class UserDetailsService implements
 					SystemAuthorities.ROLE_USER.name()));
 		}
 		org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
-				username, null, authorities);
-
+				username, user.getPassword(), authorities);
 		return userDetails;
 	}
 
