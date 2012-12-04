@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -26,9 +28,13 @@ public class User {
 	@Column(name = "id")
 	private BigInteger id;
 
+	@NotNull(message = "username.notNull")
+	@Size(min = 7, max = 255)
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 
+	@NotNull(message = "name.notNull")
+	@Size(min = 3, max = 255)
 	@Column(name = "name", nullable = false)
 	private String name;
 
