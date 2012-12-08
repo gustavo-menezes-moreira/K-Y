@@ -3,6 +3,7 @@
  */
 package br.com.escape.white.domain.respositories;
 
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,22 +36,23 @@ public class UserRepositoryTest {
 		user.setUserAssistant(false);
 		user.setPassword("");
 		user.setUsername("username@email.com");
+		user.setExpirationDate(DateTime.now().plusMonths(1));
 
 		User save = this.userRepository.save(user);
 
 		Assert.assertNotNull(save);
-
 		Assert.assertNotNull(save.getId());
 
 		User found = this.userRepository.findOne(save.getId());
+		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(save, found);
 
 		this.userRepository.delete(found.getId());
 
 		User delete = this.userRepository.findOne(found.getId());
+		
 		Assert.assertNull(delete);
-
 	}
 
 	/**
@@ -64,20 +66,21 @@ public class UserRepositoryTest {
 		user.setUserAssistant(false);
 		user.setPassword("");
 		user.setUsername("username@email.com");
+		user.setExpirationDate(DateTime.now().plusMonths(1));
 
 		User save = this.userRepository.save(user);
 
 		Assert.assertNotNull(save);
 
 		User found = this.userRepository.findByUsername("username@email.com");
+		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(save, found);
 
 		this.userRepository.delete(found.getId());
 
 		User delete = this.userRepository.findOne(found.getId());
+		
 		Assert.assertNull(delete);
-
 	}
-
 }

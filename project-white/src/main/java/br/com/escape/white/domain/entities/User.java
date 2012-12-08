@@ -1,11 +1,18 @@
 package br.com.escape.white.domain.entities;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -14,6 +21,8 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 /**
  * @author super_000
@@ -43,6 +52,20 @@ public class User {
 
 	@Column(name = "password", nullable = false)
 	private String password;
+
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Column(name = "expiration", nullable = false)
+	private DateTime expirationDate;
+
+	@Column(name = "last_login")
+	private DateTime lastLogin;
+
+	@Column(name = "try_login", nullable = false)
+	private int tryLogin = 0;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "doctor_assistant", joinColumns = @JoinColumn(name = "doctor_id"), inverseJoinColumns = @JoinColumn(name = "assistant_id"))
+	private List<User> assistants = new ArrayList<User>();
 
 	/**
 	 * @return the id
@@ -103,6 +126,87 @@ public class User {
 	public void setUserAssistant(Boolean userAssistant) {
 		this.userAssistant = userAssistant;
 	}
+	
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password
+	 *            the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return the expirationDate
+	 */
+	public DateTime getExpirationDate() {
+		return expirationDate;
+	}
+
+	/**
+	 * @param expirationDate the expirationDate to set
+	 */
+	public void setExpirationDate(DateTime expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+	/**
+	 * @return the lastLogin
+	 */
+	public DateTime getLastLogin() {
+		return lastLogin;
+	}
+
+	/**
+	 * @param lastLogin the lastLogin to set
+	 */
+	public void setLastLogin(DateTime lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	/**
+	 * @return the tryLogin
+	 */
+	public int getTryLogin() {
+		return tryLogin;
+	}
+
+	/**
+	 * @param tryLogin the tryLogin to set
+	 */
+	public void setTryLogin(int tryLogin) {
+		this.tryLogin = tryLogin;
+	}
+
+	/**
+	 * @return the assistants
+	 */
+	public List<User> getAssistants() {
+		return Collections.unmodifiableList(assistants);
+	}
+
+	/**
+	 * @param assistant
+	 */
+	public void addAssistant(User assistant) {
+		if (assistant != null && assistant.getUserAssistant().equals(true)) {
+			assistants.add(assistant);
+		}
+	}
+	
+	/**
+	 * @param assistant
+	 */
+	public void removeAssitant(User assistant) {
+		assistants.remove(assistant);
+	}
+	
 
 	/**
 	 * @see java.lang.Object#hashCode()
@@ -141,20 +245,5 @@ public class User {
 	public String toString() {
 		return new ToStringBuilder(this).append(id).append(username)
 				.append(name).append(userAssistant).toString();
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
 	}
 }

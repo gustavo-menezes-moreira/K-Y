@@ -30,5 +30,4 @@ public class KeepAlive {
 	public UserDetails keepAlive(Authentication authentication) {
 		return (UserDetails) authentication.getPrincipal();
 	}
-
 }
