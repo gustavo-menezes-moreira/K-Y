@@ -28,7 +28,5 @@ public class DefaultAuthenticationEntryPoint implements AuthenticationEntryPoint
 			AuthenticationException authException) throws IOException, ServletException {
 
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "unauthorized");
-
 	}
-
 }

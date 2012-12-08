@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.escape.white.domain.respositories;
 
 import org.joda.time.DateTime;
@@ -11,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import br.com.escape.white.domain.builder.base.Builders;
 import br.com.escape.white.domain.entities.User;
 import br.com.escape.white.domain.repositories.UserRepository;
 
@@ -30,7 +28,6 @@ public class UserRepositoryTest {
 	 */
 	@Test
 	public void testBasics() {
-
 		User user = new User();
 		user.setName("nome");
 		user.setUserAssistant(false);
@@ -44,14 +41,14 @@ public class UserRepositoryTest {
 		Assert.assertNotNull(save.getId());
 
 		User found = this.userRepository.findOne(save.getId());
-		
+
 		Assert.assertNotNull(found);
 		Assert.assertEquals(save, found);
 
 		this.userRepository.delete(found.getId());
 
 		User delete = this.userRepository.findOne(found.getId());
-		
+
 		Assert.assertNull(delete);
 	}
 
@@ -60,7 +57,6 @@ public class UserRepositoryTest {
 	 */
 	@Test
 	public void testFindByUsername() {
-
 		User user = new User();
 		user.setName("nome");
 		user.setUserAssistant(false);
@@ -73,14 +69,27 @@ public class UserRepositoryTest {
 		Assert.assertNotNull(save);
 
 		User found = this.userRepository.findByUsername("username@email.com");
-		
+
 		Assert.assertNotNull(found);
 		Assert.assertEquals(save, found);
 
 		this.userRepository.delete(found.getId());
 
 		User delete = this.userRepository.findOne(found.getId());
-		
+
 		Assert.assertNull(delete);
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void testUserBuilder() {
+		Builders.user("username@email.com", "name", false, "", DateTime.now().plusMonths(1)).buildAndSave();
+
+		User found = this.userRepository.findByUsername("username@email.com");
+
+		Assert.assertNotNull(found);
+		Assert.assertNotNull(found.getId());
 	}
 }

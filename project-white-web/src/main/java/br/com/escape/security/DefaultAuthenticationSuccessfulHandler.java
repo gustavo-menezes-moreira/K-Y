@@ -19,8 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @author gustavo.moreira
  * 
  */
-public class DefaultAuthenticationSuccessfulHandler implements
-		AuthenticationSuccessHandler {
+public class DefaultAuthenticationSuccessfulHandler implements AuthenticationSuccessHandler {
 
 	private JsonFactory jsonFactory;
 
@@ -37,9 +36,7 @@ public class DefaultAuthenticationSuccessfulHandler implements
 			throws IOException, ServletException {
 
 		StringWriter writer = new StringWriter();
-		JsonGenerator jsonGenerator = this.jsonFactory
-				.createJsonGenerator(writer);
-
+		JsonGenerator jsonGenerator = this.jsonFactory.createJsonGenerator(writer);
 		jsonGenerator.writeObject(authentication.getPrincipal());
 
 		try {
@@ -58,5 +55,4 @@ public class DefaultAuthenticationSuccessfulHandler implements
 	public void setJsonFactory(JsonFactory jsonFactory) {
 		this.jsonFactory = jsonFactory;
 	}
-
 }

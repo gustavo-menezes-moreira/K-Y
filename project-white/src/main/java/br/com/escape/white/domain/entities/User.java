@@ -1,10 +1,12 @@
 package br.com.escape.white.domain.entities;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +32,12 @@ import org.joda.time.DateTime;
  */
 @Entity
 @Table(name = "main_users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
-public class User {
+public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4461411468428368177L;
 
 	@Id
 	@GeneratedValue
@@ -63,7 +70,7 @@ public class User {
 	@Column(name = "try_login", nullable = false)
 	private int tryLogin = 0;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "doctor_assistant", joinColumns = @JoinColumn(name = "doctor_id"), inverseJoinColumns = @JoinColumn(name = "assistant_id"))
 	private List<User> assistants = new ArrayList<User>();
 
@@ -126,7 +133,7 @@ public class User {
 	public void setUserAssistant(Boolean userAssistant) {
 		this.userAssistant = userAssistant;
 	}
-	
+
 	/**
 	 * @return the password
 	 */
@@ -150,7 +157,8 @@ public class User {
 	}
 
 	/**
-	 * @param expirationDate the expirationDate to set
+	 * @param expirationDate
+	 *            the expirationDate to set
 	 */
 	public void setExpirationDate(DateTime expirationDate) {
 		this.expirationDate = expirationDate;
@@ -164,7 +172,8 @@ public class User {
 	}
 
 	/**
-	 * @param lastLogin the lastLogin to set
+	 * @param lastLogin
+	 *            the lastLogin to set
 	 */
 	public void setLastLogin(DateTime lastLogin) {
 		this.lastLogin = lastLogin;
@@ -178,7 +187,8 @@ public class User {
 	}
 
 	/**
-	 * @param tryLogin the tryLogin to set
+	 * @param tryLogin
+	 *            the tryLogin to set
 	 */
 	public void setTryLogin(int tryLogin) {
 		this.tryLogin = tryLogin;
@@ -199,14 +209,13 @@ public class User {
 			assistants.add(assistant);
 		}
 	}
-	
+
 	/**
 	 * @param assistant
 	 */
 	public void removeAssitant(User assistant) {
 		assistants.remove(assistant);
 	}
-	
 
 	/**
 	 * @see java.lang.Object#hashCode()
